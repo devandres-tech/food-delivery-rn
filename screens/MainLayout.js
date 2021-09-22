@@ -10,7 +10,7 @@ const MainLayout = () => {
         justifyContent: 'center',
       }}
     >
-      <Text>MainLayout</Text>
+      <Text>MainLayout file</Text>
     </View>
   )
 }
