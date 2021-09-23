@@ -95,10 +95,6 @@ const CustomDrawerContent = ({ navigation, selectedTab, setSelectedTab }) => {
             icon={icons.wallet}
           />
           <CustomDrawerItem
-            label={constants.screens.my_wallet}
-            icon={icons.wallet}
-          />
-          <CustomDrawerItem
             onPress={() => {
               setSelectedTab(constants.screens.notification)
               navigation.navigate('MainLayout')

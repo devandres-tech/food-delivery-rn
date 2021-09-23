@@ -38,6 +38,11 @@ const MainLayout = ({
       endDrawerAnim()
     }
   }, [isDrawerOpen])
+
+  useEffect(() => {
+    dispatch(setSelectedTab(constants.screens.home))
+  }, [dispatch])
+
   return (
     <Animated.View
       style={{
@@ -57,6 +62,40 @@ const MainLayout = ({
           alignItems: 'center',
         }}
         title={selectedTab}
+        leftContent={
+          <TouchableOpacity
+            style={{
+              width: 40,
+              height: 40,
+              alignItems: 'center',
+              justifyContent: 'center',
+              borderWidth: 1,
+              borderColor: COLORS.gray2,
+              borderRadius: SIZES.radius,
+            }}
+            onPress={() => navigation.openDrawer()}
+          >
+            <Image source={icons.menu} />
+          </TouchableOpacity>
+        }
+        rightContent={
+          <TouchableOpacity
+            style={{
+              alignItems: 'center',
+              justifyContent: 'center',
+              borderRadius: SIZES.radius,
+            }}
+          >
+            <Image
+              source={dummyData.myProfile.profile_image}
+              style={{
+                width: 40,
+                height: 40,
+                borderRadius: SIZES.radius,
+              }}
+            />
+          </TouchableOpacity>
+        }
       />
 
       {/* Content */}
