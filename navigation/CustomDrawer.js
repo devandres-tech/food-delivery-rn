@@ -29,6 +29,28 @@ const CustomDrawerContent = ({ navigation }) => {
             />
           </TouchableOpacity>
         </View>
+
+        {/* profile */}
+        <TouchableOpacity
+          style={{
+            flexDirection: 'row',
+            marginTop: SIZES.radius,
+            alignItems: 'center',
+          }}
+        >
+          <Image
+            source={dummyData.myProfile.profile_image}
+            style={{ width: 50, height: 50, borderRadius: SIZES.radius }}
+          />
+          <View style={{ marginLeft: SIZES.radius }}>
+            <Text style={{ color: COLORS.white, ...FONTS.h3 }}>
+              {dummyData.myProfile.name}
+            </Text>
+            <Text style={{ color: COLORS.white, ...FONTS.body4 }}>
+              View your profile
+            </Text>
+          </View>
+        </TouchableOpacity>
       </View>
     </DrawerContentScrollView>
   )
