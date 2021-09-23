@@ -22,6 +22,36 @@ import { COLORS, FONTS, SIZES, icons, constants, dummyData } from '../constants'
 import { setSelectedTab } from '../stores/tab/tabAction'
 import { Header } from '../components'
 
+const TabButton = ({ label, icon, isFocused, onPress }) => {
+  return (
+    <TouchableWithoutFeedback onPress={onPress}>
+      <Animated.View
+        style={{
+          flex: 1,
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <Animated.View
+          style={{
+            flexDirection: 'row',
+            width: '80%',
+            height: 50,
+            alignItems: 'center',
+            justifyContent: 'center',
+            borderRadius: 25,
+          }}
+        >
+          <Image
+            source={icon}
+            style={{ width: 20, height: 20, tintColor: COLORS.gray }}
+          />
+        </Animated.View>
+      </Animated.View>
+    </TouchableWithoutFeedback>
+  )
+}
+
 const MainLayout = ({
   drawerAnimationStyle,
   onOpenDrawerAnimation,
@@ -120,6 +150,46 @@ const MainLayout = ({
             borderTopRightRadius: 15,
           }}
         />
+        {/* Tabs  */}
+        <View
+          style={{
+            flex: 1,
+            flexDirection: 'row',
+            paddingHorizontal: SIZES.radius,
+            paddingBottom: 10,
+            borderTopLeftRadius: 20,
+            borderTopRightRadius: 20,
+            backgroundColor: COLORS.white,
+          }}
+        >
+          <TabButton
+            onPress={() => dispatch(setSelectedTab(constants.screens.home))}
+            label={constants.screens.home}
+            icon={icons.home}
+          />
+          <TabButton
+            onPress={() => dispatch(setSelectedTab(constants.screens.search))}
+            label={constants.screens.search}
+            icon={icons.search}
+          />
+          <TabButton
+            onPress={() => dispatch(setSelectedTab(constants.screens.cart))}
+            label={constants.screens.cart}
+            icon={icons.cart}
+          />
+          <TabButton
+            onPress={() => dispatch(setSelectedTab(constants.screens.favorite))}
+            label={constants.screens.favorite}
+            icon={icons.favorite}
+          />
+          <TabButton
+            onPress={() =>
+              dispatch(setSelectedTab(constants.screens.notification))
+            }
+            label={constants.screens.notification}
+            icon={icons.notification}
+          />
+        </View>
       </View>
     </Animated.View>
   )
