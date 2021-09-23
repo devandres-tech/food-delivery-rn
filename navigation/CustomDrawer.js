@@ -1,12 +1,13 @@
 import React, { useRef } from 'react'
-import { View, Text, Image, TouchableOpacity, Animated } from 'react-native'
+import { View, Text, Image, TouchableOpacity } from 'react-native'
 import {
   createDrawerNavigator,
   DrawerContentScrollView,
 } from '@react-navigation/drawer'
 import { useSelector, useDispatch } from 'react-redux'
-import { setSelectedTab } from '../stores/tab/tabAction'
+import Animated, { interpolateNode } from 'react-native-reanimated'
 
+import { setSelectedTab } from '../stores/tab/tabAction'
 import MainLayout from '../screens/MainLayout'
 import { COLORS, FONTS, SIZES, constants, icons, dummyData } from '../constants'
 
@@ -144,33 +145,17 @@ const CustomDrawer = () => {
   const drawerAnimation = useRef(new Animated.Value(0)).current
   const dispatch = useDispatch()
 
-  const scale = drawerAnimation.interpolate({
+  const scale = interpolateNode(drawerAnimation, {
     inputRange: [0, 1],
     outputRange: [1, 0.8],
   })
 
-  const borderRadius = drawerAnimation.interpolate({
+  const borderRadius = interpolateNode(drawerAnimation, {
     inputRange: [0, 1],
     outputRange: [0, 26],
   })
 
-  const animatedStyle = { borderRadius, transform: [{ scale }] }
-
-  const onOpenDrawerAnimation = () => {
-    Animated.timing(drawerAnimation, {
-      toValue: 1,
-      duration: 400,
-      useNativeDriver: true,
-    }).start()
-  }
-
-  const onCloseDrawerAnimation = () => {
-    Animated.timing(drawerAnimation, {
-      toValue: 0,
-      duration: 400,
-      useNativeDriver: true,
-    }).start()
-  }
+  const animatedStyle = { borderRadius, transform: [{ scale: scale }] }
 
   return (
     <View style={{ flex: 1, backgroundColor: COLORS.primary }}>
@@ -204,12 +189,7 @@ const CustomDrawer = () => {
       >
         <Drawer.Screen name='MainLayout'>
           {(props) => (
-            <MainLayout
-              onCloseDrawerAnimation={onCloseDrawerAnimation}
-              onOpenDrawerAnimation={onOpenDrawerAnimation}
-              drawerAnimationStyle={animatedStyle}
-              {...props}
-            />
+            <MainLayout drawerAnimationStyle={animatedStyle} {...props} />
           )}
         </Drawer.Screen>
       </Drawer.Navigator>

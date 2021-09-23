@@ -1,18 +1,18 @@
 import React, { useEffect } from 'react'
 import {
   Text,
-  Animated,
   View,
   TouchableOpacity,
   TouchableWithoutFeedback,
   Image,
   FlatList,
 } from 'react-native'
-import { useDrawerStatus } from '@react-navigation/drawer'
-import {
+import { useDrawerStatus, useDrawerProgress } from '@react-navigation/drawer'
+import Animated, {
   useSharedValue,
   useAnimatedStyle,
   withTiming,
+  Easing,
 } from 'react-native-reanimated'
 import { useSelector, useDispatch } from 'react-redux'
 import LinearGradient from 'react-native-linear-gradient'
@@ -22,57 +22,164 @@ import { COLORS, FONTS, SIZES, icons, constants, dummyData } from '../constants'
 import { setSelectedTab } from '../stores/tab/tabAction'
 import { Header } from '../components'
 
-const TabButton = ({ label, icon, isFocused, onPress }) => {
+const TabButton = ({
+  label,
+  icon,
+  isFocused,
+  onPress,
+  outerContainerStyle,
+  innerContainerStyle,
+}) => {
   return (
     <TouchableWithoutFeedback onPress={onPress}>
       <Animated.View
-        style={{
-          flex: 1,
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
-        <Animated.View
-          style={{
-            flexDirection: 'row',
-            width: '80%',
-            height: 50,
+        style={[
+          {
+            flex: 1,
             alignItems: 'center',
             justifyContent: 'center',
-            borderRadius: 25,
-          }}
+          },
+          outerContainerStyle,
+        ]}
+      >
+        <Animated.View
+          style={[
+            {
+              flexDirection: 'row',
+              width: '80%',
+              height: 50,
+              alignItems: 'center',
+              justifyContent: 'center',
+              borderRadius: 25,
+            },
+            innerContainerStyle,
+          ]}
         >
           <Image
             source={icon}
             style={{ width: 20, height: 20, tintColor: COLORS.gray }}
           />
+          {isFocused && (
+            <Text
+              numberOfLines={1}
+              style={{
+                marginLeft: SIZES.base,
+                color: COLORS.gray,
+                ...FONTS.h3,
+              }}
+            >
+              {label}
+            </Text>
+          )}
         </Animated.View>
       </Animated.View>
     </TouchableWithoutFeedback>
   )
 }
 
-const MainLayout = ({
-  drawerAnimationStyle,
-  onOpenDrawerAnimation,
-  onCloseDrawerAnimation,
-  navigation,
-}) => {
+const MainLayout = ({ navigation }) => {
   const selectedTab = useSelector((state) => state.tabReducer.selectedTab)
+  const progress = useDrawerProgress()
   const dispatch = useDispatch()
-  const isDrawerOpen = useDrawerStatus() === 'open'
 
-  useEffect(() => {
-    if (isDrawerOpen) {
-      onOpenDrawerAnimation()
-    } else {
-      onCloseDrawerAnimation()
-    }
-  }, [isDrawerOpen])
+  const scale = Animated.interpolateNode(progress, {
+    inputRange: [0, 1],
+    outputRange: [1, 0.8],
+  })
+
+  const borderRadius = Animated.interpolateNode(progress, {
+    inputRange: [0, 1],
+    outputRange: [0, 26],
+  })
+
+  const animatedStyle = { borderRadius, transform: [{ scale: scale }] }
+
+  // reanimated shared values
+  const homeTabFlex = useSharedValue(1)
+  const homeTabColor = useSharedValue(COLORS.white)
+  const searchTabFlex = useSharedValue(1)
+  const searchTabColor = useSharedValue(COLORS.white)
+  const cartTabFlex = useSharedValue(1)
+  const cartTabColor = useSharedValue(COLORS.white)
+  const favoriteTabFlex = useSharedValue(1)
+  const favoriteTabColor = useSharedValue(COLORS.white)
+  const notificationTabFlex = useSharedValue(1)
+  const notificationTabColor = useSharedValue(COLORS.white)
+  // reanimated animated style
+  const homeFlexStyle = useAnimatedStyle(() => {
+    return { flex: homeTabFlex.value }
+  })
+  const homeColorStyle = useAnimatedStyle(() => {
+    return { backgroundColor: homeTabColor.value }
+  })
+  const searchFlexStyle = useAnimatedStyle(() => {
+    return { flex: searchTabFlex.value }
+  })
+  const searchColorStyle = useAnimatedStyle(() => {
+    return { backgroundColor: searchTabColor.value }
+  })
+  const cartFlexStyle = useAnimatedStyle(() => {
+    return { flex: cartTabFlex.value }
+  })
+  const cartColorStyle = useAnimatedStyle(() => {
+    return { backgroundColor: cartTabColor.value }
+  })
+  const favoriteFlexStyle = useAnimatedStyle(() => {
+    return { flex: favoriteTabFlex.value }
+  })
+  const favoriteColorStyle = useAnimatedStyle(() => {
+    return { backgroundColor: favoriteTabColor.value }
+  })
+  const notificationFlexStyle = useAnimatedStyle(() => {
+    return { flex: notificationTabFlex.value }
+  })
+  const notificationColorStyle = useAnimatedStyle(() => {
+    return { backgroundColor: notificationTabColor.value }
+  })
 
   useEffect(() => {
     dispatch(setSelectedTab(constants.screens.home))
   }, [dispatch])
+
+  useEffect(() => {
+    if (selectedTab === constants.screens.home) {
+      homeTabFlex.value = withTiming(4, { duration: 500 })
+      homeTabColor.value = withTiming(COLORS.primary, {
+        duration: 500,
+      })
+    } else {
+      homeTabFlex.value = withTiming(1, { duration: 500 })
+      homeTabColor.value = withTiming(COLORS.white, { duration: 500 })
+    }
+    if (selectedTab === constants.screens.search) {
+      searchTabFlex.value = withTiming(4, { duration: 500 })
+      searchTabColor.value = withTiming(COLORS.primary, { duration: 500 })
+    } else {
+      searchTabFlex.value = withTiming(1, { duration: 500 })
+      searchTabColor.value = withTiming(COLORS.white, { duration: 500 })
+    }
+    if (selectedTab === constants.screens.cart) {
+      cartTabFlex.value = withTiming(4, { duration: 500 })
+      cartTabColor.value = withTiming(COLORS.primary, { duration: 500 })
+    } else {
+      cartTabFlex.value = withTiming(1, { duration: 500 })
+      cartTabColor.value = withTiming(COLORS.white, { duration: 500 })
+    }
+    if (selectedTab === constants.screens.favorite) {
+      favoriteTabFlex.value = withTiming(4, { duration: 500 })
+      favoriteTabColor.value = withTiming(COLORS.primary, { duration: 500 })
+    } else {
+      favoriteTabFlex.value = withTiming(1, { duration: 500 })
+      favoriteTabColor.value = withTiming(COLORS.white, { duration: 500 })
+    }
+    if (selectedTab === constants.screens.notification) {
+      notificationTabFlex.value = withTiming(4, { duration: 500 })
+      notificationTabColor.value = withTiming(COLORS.primary, { duration: 500 })
+    } else {
+      notificationTabFlex.value = withTiming(1, { duration: 500 })
+      notificationTabColor.value = withTiming(COLORS.white, { duration: 500 })
+    }
+  }, [selectedTab])
 
   return (
     <Animated.View
@@ -80,7 +187,7 @@ const MainLayout = ({
         flex: 1,
 
         backgroundColor: COLORS.white,
-        ...drawerAnimationStyle,
+        ...animatedStyle,
       }}
     >
       {/* Header */}
@@ -166,21 +273,33 @@ const MainLayout = ({
             onPress={() => dispatch(setSelectedTab(constants.screens.home))}
             label={constants.screens.home}
             icon={icons.home}
+            isFocused={selectedTab === constants.screens.home}
+            outerContainerStyle={homeFlexStyle}
+            innerContainerStyle={homeColorStyle}
           />
           <TabButton
             onPress={() => dispatch(setSelectedTab(constants.screens.search))}
             label={constants.screens.search}
             icon={icons.search}
+            isFocused={selectedTab === constants.screens.search}
+            outerContainerStyle={searchFlexStyle}
+            innerContainerStyle={searchColorStyle}
           />
           <TabButton
             onPress={() => dispatch(setSelectedTab(constants.screens.cart))}
             label={constants.screens.cart}
             icon={icons.cart}
+            isFocused={selectedTab === constants.screens.cart}
+            outerContainerStyle={cartFlexStyle}
+            innerContainerStyle={cartColorStyle}
           />
           <TabButton
             onPress={() => dispatch(setSelectedTab(constants.screens.favorite))}
             label={constants.screens.favorite}
             icon={icons.favorite}
+            isFocused={selectedTab === constants.screens.favorite}
+            outerContainerStyle={favoriteFlexStyle}
+            innerContainerStyle={favoriteColorStyle}
           />
           <TabButton
             onPress={() =>
@@ -188,6 +307,9 @@ const MainLayout = ({
             }
             label={constants.screens.notification}
             icon={icons.notification}
+            isFocused={selectedTab === constants.screens.notification}
+            outerContainerStyle={notificationFlexStyle}
+            innerContainerStyle={notificationColorStyle}
           />
         </View>
       </View>
