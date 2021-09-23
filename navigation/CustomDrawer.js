@@ -141,32 +141,32 @@ const CustomDrawerContent = ({ navigation, selectedTab, setSelectedTab }) => {
 
 const CustomDrawer = () => {
   const selectedTab = useSelector((state) => state.tabReducer.selectedTab)
-  const drawerAnim = useRef(new Animated.Value(0)).current
+  const drawerAnimation = useRef(new Animated.Value(0)).current
   const dispatch = useDispatch()
 
-  const scale = drawerAnim.interpolate({
+  const scale = drawerAnimation.interpolate({
     inputRange: [0, 1],
     outputRange: [1, 0.8],
   })
 
-  const borderRadius = drawerAnim.interpolate({
+  const borderRadius = drawerAnimation.interpolate({
     inputRange: [0, 1],
     outputRange: [0, 26],
   })
 
   const animatedStyle = { borderRadius, transform: [{ scale }] }
 
-  const endDrawerAnim = () => {
-    Animated.timing(drawerAnim, {
-      toValue: 0,
+  const onOpenDrawerAnimation = () => {
+    Animated.timing(drawerAnimation, {
+      toValue: 1,
       duration: 400,
       useNativeDriver: true,
     }).start()
   }
 
-  const startDrawerAnim = () => {
-    Animated.timing(drawerAnim, {
-      toValue: 1,
+  const onCloseDrawerAnimation = () => {
+    Animated.timing(drawerAnimation, {
+      toValue: 0,
       duration: 400,
       useNativeDriver: true,
     }).start()
@@ -205,8 +205,8 @@ const CustomDrawer = () => {
         <Drawer.Screen name='MainLayout'>
           {(props) => (
             <MainLayout
-              startDrawerAnim={startDrawerAnim}
-              endDrawerAnim={endDrawerAnim}
+              onCloseDrawerAnimation={onCloseDrawerAnimation}
+              onOpenDrawerAnimation={onOpenDrawerAnimation}
               drawerAnimationStyle={animatedStyle}
               {...props}
             />

@@ -15,6 +15,7 @@ import {
   withTiming,
 } from 'react-native-reanimated'
 import { useSelector, useDispatch } from 'react-redux'
+import LinearGradient from 'react-native-linear-gradient'
 
 import { Home, Search, CartTab, Favorite, Notification } from '../screens'
 import { COLORS, FONTS, SIZES, icons, constants, dummyData } from '../constants'
@@ -23,8 +24,8 @@ import { Header } from '../components'
 
 const MainLayout = ({
   drawerAnimationStyle,
-  startDrawerAnim,
-  endDrawerAnim,
+  onOpenDrawerAnimation,
+  onCloseDrawerAnimation,
   navigation,
 }) => {
   const selectedTab = useSelector((state) => state.tabReducer.selectedTab)
@@ -33,9 +34,9 @@ const MainLayout = ({
 
   useEffect(() => {
     if (isDrawerOpen) {
-      startDrawerAnim()
+      onOpenDrawerAnimation()
     } else {
-      endDrawerAnim()
+      onCloseDrawerAnimation()
     }
   }, [isDrawerOpen])
 
@@ -104,6 +105,10 @@ const MainLayout = ({
       </View>
 
       {/* Footer */}
+      <View style={{ height: 100, justifyContent: 'flex-end' }}>
+        {/* Shadow */}
+        {/* <LinearGradient start={{}} /> */}
+      </View>
     </Animated.View>
   )
 }
