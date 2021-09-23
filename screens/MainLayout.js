@@ -1,17 +1,33 @@
-import React from 'react'
-import { View, Text } from 'react-native'
+import React, { useEffect } from 'react'
+import { Text, Animated } from 'react-native'
+import { useDrawerStatus } from '@react-navigation/drawer'
 
-const MainLayout = () => {
+const MainLayout = ({
+  drawerAnimationStyle,
+  startDrawerAnim,
+  endDrawerAnim,
+}) => {
+  const isDrawerOpen = useDrawerStatus() === 'open'
+
+  useEffect(() => {
+    if (isDrawerOpen) {
+      startDrawerAnim()
+    } else {
+      endDrawerAnim()
+    }
+  }, [isDrawerOpen])
   return (
-    <View
+    <Animated.View
       style={{
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
+        backgroundColor: 'white',
+        ...drawerAnimationStyle,
       }}
     >
       <Text>MainLayout file</Text>
-    </View>
+    </Animated.View>
   )
 }
 
