@@ -99,10 +99,20 @@ const CustomDrawerContent = ({ navigation, selectedTab, setSelectedTab }) => {
             icon={icons.wallet}
           />
           <CustomDrawerItem
+            onPress={() => {
+              setSelectedTab(constants.screens.notification)
+              navigation.navigate('MainLayout')
+            }}
+            isFocused={selectedTab === constants.screens.notification}
             label={constants.screens.notification}
             icon={icons.notification}
           />
           <CustomDrawerItem
+            onPress={() => {
+              setSelectedTab(constants.screens.favorite)
+              navigation.navigate('MainLayout')
+            }}
+            isFocused={selectedTab === constants.screens.favorite}
             label={constants.screens.favorite}
             icon={icons.favorite}
           />
