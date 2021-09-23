@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import {
   Text,
   View,
@@ -57,14 +57,18 @@ const TabButton = ({
         >
           <Image
             source={icon}
-            style={{ width: 20, height: 20, tintColor: COLORS.gray }}
+            style={{
+              width: 20,
+              height: 20,
+              tintColor: isFocused ? COLORS.white : COLORS.gray,
+            }}
           />
           {isFocused && (
             <Text
               numberOfLines={1}
               style={{
                 marginLeft: SIZES.base,
-                color: COLORS.gray,
+                color: isFocused ? COLORS.white : COLORS.gray,
                 ...FONTS.h3,
               }}
             >
@@ -78,6 +82,7 @@ const TabButton = ({
 }
 
 const MainLayout = ({ navigation }) => {
+  const flatListRef = useRef()
   const selectedTab = useSelector((state) => state.tabReducer.selectedTab)
   const progress = useDrawerProgress()
   const dispatch = useDispatch()
@@ -143,6 +148,7 @@ const MainLayout = ({ navigation }) => {
 
   useEffect(() => {
     if (selectedTab === constants.screens.home) {
+      flatListRef.current.scrollToIndex({ index: 0, animated: false })
       homeTabFlex.value = withTiming(4, { duration: 500 })
       homeTabColor.value = withTiming(COLORS.primary, {
         duration: 500,
@@ -152,6 +158,7 @@ const MainLayout = ({ navigation }) => {
       homeTabColor.value = withTiming(COLORS.white, { duration: 500 })
     }
     if (selectedTab === constants.screens.search) {
+      flatListRef.current.scrollToIndex({ index: 1, animated: false })
       searchTabFlex.value = withTiming(4, { duration: 500 })
       searchTabColor.value = withTiming(COLORS.primary, { duration: 500 })
     } else {
@@ -159,6 +166,7 @@ const MainLayout = ({ navigation }) => {
       searchTabColor.value = withTiming(COLORS.white, { duration: 500 })
     }
     if (selectedTab === constants.screens.cart) {
+      flatListRef.current.scrollToIndex({ index: 2, animated: false })
       cartTabFlex.value = withTiming(4, { duration: 500 })
       cartTabColor.value = withTiming(COLORS.primary, { duration: 500 })
     } else {
@@ -166,6 +174,7 @@ const MainLayout = ({ navigation }) => {
       cartTabColor.value = withTiming(COLORS.white, { duration: 500 })
     }
     if (selectedTab === constants.screens.favorite) {
+      flatListRef.current.scrollToIndex({ index: 3, animated: false })
       favoriteTabFlex.value = withTiming(4, { duration: 500 })
       favoriteTabColor.value = withTiming(COLORS.primary, { duration: 500 })
     } else {
@@ -173,6 +182,7 @@ const MainLayout = ({ navigation }) => {
       favoriteTabColor.value = withTiming(COLORS.white, { duration: 500 })
     }
     if (selectedTab === constants.screens.notification) {
+      flatListRef.current.scrollToIndex({ index: 4, animated: false })
       notificationTabFlex.value = withTiming(4, { duration: 500 })
       notificationTabColor.value = withTiming(COLORS.primary, { duration: 500 })
     } else {
@@ -237,7 +247,30 @@ const MainLayout = ({ navigation }) => {
 
       {/* Content */}
       <View style={{ flex: 1 }}>
-        <Text>MainLayout file</Text>
+        <FlatList
+          ref={flatListRef}
+          horizontal
+          scrollEnabled={false}
+          pagingEnabled
+          snapToAlignment='center'
+          snapToInterval={SIZES.width}
+          showsHorizontalScrollIndicator={false}
+          data={constants.bottom_tabs}
+          keyExtractor={(item) => `${item.id}`}
+          renderItem={({ item, index }) => {
+            return (
+              <View style={{ height: SIZES.height, width: SIZES.width }}>
+                {item.label === constants.screens.home && <Home />}
+                {item.label === constants.screens.search && <Search />}
+                {item.label === constants.screens.cart && <CartTab />}
+                {item.label === constants.screens.favorite && <Favorite />}
+                {item.label === constants.screens.notification && (
+                  <Notification />
+                )}
+              </View>
+            )
+          }}
+        />
       </View>
 
       {/* Footer */}
