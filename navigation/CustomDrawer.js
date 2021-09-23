@@ -1,9 +1,11 @@
-import React, { useRef, useEffect } from 'react'
+import React, { useRef } from 'react'
 import { View, Text, Image, TouchableOpacity, Animated } from 'react-native'
 import {
   createDrawerNavigator,
   DrawerContentScrollView,
 } from '@react-navigation/drawer'
+import { connect } from 'react-redux'
+import { setSelectedTab } from '../stores/tab/tabAction'
 
 import MainLayout from '../screens/MainLayout'
 import { COLORS, FONTS, SIZES, constants, icons, dummyData } from '../constants'
