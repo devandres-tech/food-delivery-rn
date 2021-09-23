@@ -10,6 +10,29 @@ import { COLORS, FONTS, SIZES, constants, icons, dummyData } from '../constants'
 
 const Drawer = createDrawerNavigator()
 
+const CustomDrawerItem = ({ label, icon }) => {
+  return (
+    <TouchableOpacity
+      style={{
+        flexDirection: 'row',
+        height: 40,
+        marginBottom: SIZES.base,
+        alignItems: 'center',
+        paddingLeft: SIZES.radius,
+        borderRadius: SIZES.base,
+      }}
+    >
+      <Image
+        source={icon}
+        style={{ width: 20, height: 20, tintColor: COLORS.white }}
+      />
+      <Text style={{ marginLeft: 15, color: COLORS.white, ...FONTS.h3 }}>
+        {label}
+      </Text>
+    </TouchableOpacity>
+  )
+}
+
 const CustomDrawerContent = ({ navigation }) => {
   return (
     <DrawerContentScrollView
@@ -51,6 +74,48 @@ const CustomDrawerContent = ({ navigation }) => {
             </Text>
           </View>
         </TouchableOpacity>
+
+        {/* drawer items */}
+        <View style={{ flex: 1, marginTop: SIZES.padding }}>
+          <CustomDrawerItem label={constants.screens.home} icon={icons.home} />
+          <CustomDrawerItem
+            label={constants.screens.my_wallet}
+            icon={icons.wallet}
+          />
+          <CustomDrawerItem
+            label={constants.screens.my_wallet}
+            icon={icons.wallet}
+          />
+          <CustomDrawerItem
+            label={constants.screens.notification}
+            icon={icons.notification}
+          />
+          <CustomDrawerItem
+            label={constants.screens.favorite}
+            icon={icons.favorite}
+          />
+
+          {/* line divider */}
+          <View
+            style={{
+              height: 1,
+              marginVertical: SIZES.radius,
+              marginLeft: SIZES.radius,
+              backgroundColor: COLORS.lightGray1,
+            }}
+          />
+
+          <CustomDrawerItem label={'Track Your Order'} icon={icons.location} />
+          <CustomDrawerItem label={'Coupons'} icon={icons.coupon} />
+          <CustomDrawerItem label={'Settings'} icon={icons.setting} />
+          <CustomDrawerItem label={'Invite a Friend'} icon={icons.profile} />
+          <CustomDrawerItem label={'Help Center'} icon={icons.help} />
+        </View>
+
+        {/* logout container */}
+        <View style={{ marginBottom: SIZES.padding }}>
+          <CustomDrawerItem label={'logout'} icon={icons.logout} />
+        </View>
       </View>
     </DrawerContentScrollView>
   )
