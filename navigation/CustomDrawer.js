@@ -4,7 +4,7 @@ import {
   createDrawerNavigator,
   DrawerContentScrollView,
 } from '@react-navigation/drawer'
-import { connect } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { setSelectedTab } from '../stores/tab/tabAction'
 
 import MainLayout from '../screens/MainLayout'
@@ -12,9 +12,10 @@ import { COLORS, FONTS, SIZES, constants, icons, dummyData } from '../constants'
 
 const Drawer = createDrawerNavigator()
 
-const CustomDrawerItem = ({ label, icon }) => {
+const CustomDrawerItem = ({ label, icon, isFocused, onPress }) => {
   return (
     <TouchableOpacity
+      onPress={onPress}
       style={{
         flexDirection: 'row',
         height: 40,
@@ -22,6 +23,7 @@ const CustomDrawerItem = ({ label, icon }) => {
         alignItems: 'center',
         paddingLeft: SIZES.radius,
         borderRadius: SIZES.base,
+        backgroundColor: isFocused ? COLORS.transparentBlack1 : null,
       }}
     >
       <Image
@@ -35,7 +37,7 @@ const CustomDrawerItem = ({ label, icon }) => {
   )
 }
 
-const CustomDrawerContent = ({ navigation }) => {
+const CustomDrawerContent = ({ navigation, selectedTab, setSelectedTab }) => {
   return (
     <DrawerContentScrollView
       scrollEnabled={true}
@@ -79,7 +81,15 @@ const CustomDrawerContent = ({ navigation }) => {
 
         {/* drawer items */}
         <View style={{ flex: 1, marginTop: SIZES.padding }}>
-          <CustomDrawerItem label={constants.screens.home} icon={icons.home} />
+          <CustomDrawerItem
+            onPress={() => {
+              setSelectedTab(constants.screens.home)
+              navigation.navigate('MainLayout')
+            }}
+            isFocused={selectedTab === constants.screens.home}
+            label={constants.screens.home}
+            icon={icons.home}
+          />
           <CustomDrawerItem
             label={constants.screens.my_wallet}
             icon={icons.wallet}
@@ -124,12 +134,15 @@ const CustomDrawerContent = ({ navigation }) => {
 }
 
 const CustomDrawer = () => {
+  const selectedTab = useSelector((state) => state.tabReducer.selectedTab)
   const drawerAnim = useRef(new Animated.Value(0)).current
+  const dispatch = useDispatch()
 
   const scale = drawerAnim.interpolate({
     inputRange: [0, 1],
     outputRange: [1, 0.8],
   })
+
   const borderRadius = drawerAnim.interpolate({
     inputRange: [0, 1],
     outputRange: [0, 26],
@@ -172,7 +185,15 @@ const CustomDrawer = () => {
         backBehavior='none'
         initialRouteName='MainLayout'
         drawerContent={(props) => {
-          return <CustomDrawerContent navigation={props.navigation} />
+          return (
+            <CustomDrawerContent
+              selectedTab={selectedTab}
+              setSelectedTab={(onTabSelected) =>
+                dispatch(setSelectedTab(onTabSelected))
+              }
+              navigation={props.navigation}
+            />
+          )
         }}
       >
         <Drawer.Screen name='MainLayout'>
@@ -189,4 +210,5 @@ const CustomDrawer = () => {
     </View>
   )
 }
+
 export default CustomDrawer
