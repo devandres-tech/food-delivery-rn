@@ -48,9 +48,8 @@ const MainLayout = ({
     <Animated.View
       style={{
         flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: 'white',
+
+        backgroundColor: COLORS.white,
         ...drawerAnimationStyle,
       }}
     >
@@ -107,7 +106,20 @@ const MainLayout = ({
       {/* Footer */}
       <View style={{ height: 100, justifyContent: 'flex-end' }}>
         {/* Shadow */}
-        {/* <LinearGradient start={{}} /> */}
+        <LinearGradient
+          start={{ x: 0, y: 0 }}
+          end={{ x: 0, y: 4 }}
+          colors={[COLORS.transparent, COLORS.lightGray1]}
+          style={{
+            position: 'absolute',
+            top: -20,
+            left: 0,
+            right: 0,
+            height: 100,
+            borderTopLeftRadius: 15,
+            borderTopRightRadius: 15,
+          }}
+        />
       </View>
     </Animated.View>
   )
