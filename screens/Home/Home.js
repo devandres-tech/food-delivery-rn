@@ -24,9 +24,43 @@ const Home = () => {
     let selectedMenu = dummyData.menu.find(
       (menuItem) => menuItem.id === menuTypeId
     )
-    console.log('selected menu', selectedMenu)
     setMenuList(
       selectedMenu.list.filter((item) => item.categories.includes(categoryId))
+    )
+  }
+
+  const renderMenuTypes = () => {
+    return (
+      <FlatList
+        horizontal
+        data={dummyData.menu}
+        keyExtractor={(item) => `${item.id}`}
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={{ marginTop: 30, marginBottom: 20 }}
+        renderItem={({ item, index }) => (
+          <TouchableOpacity
+            style={{
+              marginLeft: SIZES.padding,
+              marginRight:
+                index === dummyData.menu.length - 1 ? SIZES.padding : 0,
+            }}
+            onPress={() => {
+              setSelectedMenuType(item.id)
+              handleChangeCategory(selectedCategoryId, item.id)
+            }}
+          >
+            <Text
+              style={{
+                color:
+                  selectedMenuType === item.id ? COLORS.primary : COLORS.black,
+                ...FONTS.h3,
+              }}
+            >
+              {item.name}
+            </Text>
+          </TouchableOpacity>
+        )}
+      />
     )
   }
 
@@ -72,6 +106,7 @@ const Home = () => {
 
       {/* list  */}
       <FlatList
+        ListHeaderComponent={<View>{renderMenuTypes()}</View>}
         data={menuList}
         showsVerticalScrollIndicator={false}
         keyExtractor={(item) => `${item.id}`}
