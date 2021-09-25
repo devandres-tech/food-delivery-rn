@@ -9,6 +9,7 @@ import {
 } from 'react-native'
 
 import { FONTS, SIZES, COLORS, icons, dummyData } from '../../constants'
+import { HorizontalFoodCard } from '../../components'
 
 const Home = () => {
   const [selectedCategoryId, setSelectedCategoryId] = useState(1)
