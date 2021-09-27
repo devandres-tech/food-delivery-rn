@@ -9,7 +9,11 @@ import {
 } from 'react-native'
 
 import { FONTS, SIZES, COLORS, icons, dummyData } from '../../constants'
-import { HorizontalFoodCard, VerticalFoodCard } from '../../components'
+import {
+  HorizontalFoodCard,
+  VerticalFoodCard,
+  FilterModal,
+} from '../../components'
 
 const Section = ({ title, onPress, children }) => {
   return (
@@ -41,6 +45,7 @@ const Home = () => {
   const [menuList, setMenuList] = useState([])
   const [recommends, setRecommends] = useState([])
   const [popular, setPopular] = useState([])
+  const [showFilterModal, setShowFilterModal] = useState(false)
 
   useEffect(() => {
     handleChangeCategory(selectedCategoryId, selectedMenuType)
@@ -127,7 +132,7 @@ const Home = () => {
         <TextInput
           style={{ flex: 1, marginLeft: SIZES.radius, ...FONTS.body3 }}
         />
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => setShowFilterModal(true)}>
           <Image
             source={icons.filter}
             style={{ height: 20, width: 20, tintColor: COLORS.black }}
@@ -280,6 +285,13 @@ const Home = () => {
     >
       {/* search */}
       {renderSearch()}
+
+      {showFilterModal && (
+        <FilterModal
+          isVisible={showFilterModal}
+          onClose={() => setShowFilterModal(false)}
+        />
+      )}
 
       {/* list  */}
       <FlatList
