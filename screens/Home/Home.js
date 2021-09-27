@@ -9,7 +9,7 @@ import {
 } from 'react-native'
 
 import { FONTS, SIZES, COLORS, icons, dummyData } from '../../constants'
-import { HorizontalFoodCard } from '../../components'
+import { HorizontalFoodCard, VerticalFoodCard } from '../../components'
 
 const Section = ({ title, onPress, children }) => {
   return (
@@ -40,12 +40,20 @@ const Home = () => {
   const [selectedMenuType, setSelectedMenuType] = useState(1)
   const [menuList, setMenuList] = useState([])
   const [recommends, setRecommends] = useState([])
+  const [popular, setPopular] = useState([])
 
   useEffect(() => {
     handleChangeCategory(selectedCategoryId, selectedMenuType)
   }, [])
 
   const handleChangeCategory = (categoryId, menuTypeId) => {
+    let selectedPopular = dummyData.menu.find((item) => item.name === 'Popular')
+    setPopular(
+      selectedPopular.list.filter((item) =>
+        item.categories.includes(categoryId)
+      )
+    )
+
     let selectedRecommend = dummyData.menu.find(
       (item) => item.name === 'Recommended'
     )
@@ -129,6 +137,33 @@ const Home = () => {
     )
   }
 
+  const renderPopularSection = () => {
+    return (
+      <Section
+        title='Popular Near You'
+        onPress={() => console.log('show popular items')}
+      >
+        <FlatList
+          data={popular}
+          keyExtractor={(item) => `${item.id}`}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          onPress={() => console.log('on press')}
+          renderItem={({ item, index }) => (
+            <VerticalFoodCard
+              containerStyle={{
+                marginLeft: index === 0 ? SIZES.padding : 18,
+                marginRight: index === popular.length - 1 ? SIZES.padding : 0,
+              }}
+              item={item}
+              onPress={() => console.log('Vertical food card')}
+            />
+          )}
+        />
+      </Section>
+    )
+  }
+
   const renderRecommendedSection = () => {
     return (
       <Section
@@ -174,6 +209,7 @@ const Home = () => {
       <FlatList
         ListHeaderComponent={
           <View>
+            {renderPopularSection()}
             {renderRecommendedSection()}
             {renderMenuTypes()}
           </View>
