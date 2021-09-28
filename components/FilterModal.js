@@ -53,7 +53,7 @@ const FilterModal = ({ isVisible, onClose }) => {
       <Section title='Distance'>
         <View style={{ alignItems: 'center' }}>
           <TwoPointSlider
-            values={[3, 4]}
+            values={[3, 10]}
             min={1}
             max={20}
             postfix='Km'
@@ -67,7 +67,13 @@ const FilterModal = ({ isVisible, onClose }) => {
   const renderDeliveryTime = () => {
     return (
       <Section title='Delivery Time' containerStyle={{ marginTop: 40 }}>
-        <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
+        <View
+          style={{
+            flexDirection: 'row',
+            flexWrap: 'wrap',
+            marginTop: SIZES.radius,
+          }}
+        >
           {constants.delivery_time.map((item, index) => {
             return (
               <TextButton
@@ -92,6 +98,23 @@ const FilterModal = ({ isVisible, onClose }) => {
               />
             )
           })}
+        </View>
+      </Section>
+    )
+  }
+
+  const renderPricingRange = () => {
+    return (
+      <Section title='Pricing Range'>
+        <View style={{ alignItems: 'center' }}>
+          <TwoPointSlider
+            values={[10, 50]}
+            min={1}
+            max={100}
+            prefix='$'
+            postfix=''
+            onValuesChange={(values) => console.log(values)}
+          />
         </View>
       </Section>
     )
@@ -147,9 +170,10 @@ const FilterModal = ({ isVisible, onClose }) => {
           >
             {/* distance */}
             {renderDistance()}
-
             {/* delivery time  */}
             {renderDeliveryTime()}
+            {/* pricing rage  */}
+            {renderPricingRange()}
           </ScrollView>
         </Animated.View>
       </View>
