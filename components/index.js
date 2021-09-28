@@ -4,6 +4,7 @@ import VerticalFoodCard from './VerticalFoodCard'
 import FilterModal from './FilterModal'
 import IconButton from './IconButton'
 import TextButton from './TextButton'
+import TextIconButton from './TextIconButton'
 import TwoPointSlider from './TwoPointSlider'
 
 export {
@@ -14,4 +15,5 @@ export {
   IconButton,
   TwoPointSlider,
   TextButton,
+  TextIconButton,
 }

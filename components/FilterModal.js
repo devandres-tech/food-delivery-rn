@@ -9,7 +9,7 @@ import {
 } from 'react-native'
 
 import { COLORS, FONTS, SIZES, constants, icons } from '../constants'
-import { IconButton, TwoPointSlider, TextButton } from './index'
+import { IconButton, TwoPointSlider, TextButton, TextIconButton } from './index'
 
 const Section = ({ containerStyle, title, children }) => {
   return (
@@ -120,6 +120,40 @@ const FilterModal = ({ isVisible, onClose }) => {
     )
   }
 
+  const renderRatings = () => {
+    return (
+      <Section title='Ratings' style={{ marginTop: 40 }}>
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+          {constants.ratings.map((item, index) => {
+            return (
+              <TextIconButton
+                key={`ratings-${index}`}
+                containerStyle={{
+                  flex: 1,
+                  height: 50,
+                  margin: 5,
+                  alignItems: 'center',
+                  borderRadius: SIZES.base,
+                  backgroundColor:
+                    item.id === ratings ? COLORS.primary : COLORS.lightGray2,
+                }}
+                label={item.label}
+                labelStyle={{
+                  color: item.id === ratings ? COLORS.white : COLORS.gray,
+                }}
+                icon={icons.star}
+                iconStyle={{
+                  tintColor: item.id === ratings ? COLORS.white : COLORS.gray,
+                }}
+                onPress={() => setRatings(item.id)}
+              />
+            )
+          })}
+        </View>
+      </Section>
+    )
+  }
+
   return (
     <Modal animationType='fade' transparent={true} visible={isVisible}>
       <View style={{ flex: 1, backgroundColor: COLORS.transparentBlack7 }}>
@@ -174,6 +208,8 @@ const FilterModal = ({ isVisible, onClose }) => {
             {renderDeliveryTime()}
             {/* pricing rage  */}
             {renderPricingRange()}
+            {/* ratings  */}
+            {renderRatings()}
           </ScrollView>
         </Animated.View>
       </View>
