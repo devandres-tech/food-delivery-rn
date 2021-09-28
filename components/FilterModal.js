@@ -244,6 +244,29 @@ const FilterModal = ({ isVisible, onClose }) => {
             {/* tags  */}
             {renderTags()}
           </ScrollView>
+
+          <View
+            style={{
+              position: 'absolute',
+              bottom: 150,
+              left: 0,
+              right: 0,
+              height: 110,
+              paddingHorizontal: SIZES.padding,
+              paddingVertical: SIZES.radius,
+              backgroundColor: COLORS.white,
+            }}
+          >
+            <TextButton
+              label='Apply Filters'
+              buttonContainerStyle={{
+                height: 50,
+                borderRadius: SIZES.base,
+                backgroundColor: COLORS.primary,
+              }}
+              onPress={() => console.log('apply filters')}
+            />
+          </View>
         </Animated.View>
       </View>
     </Modal>
