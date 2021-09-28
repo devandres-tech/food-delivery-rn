@@ -9,7 +9,16 @@ import {
 } from 'react-native'
 
 import { COLORS, FONTS, SIZES, constants, icons } from '../constants'
-import IconButton from './IconButton'
+import { IconButton, TwoPointSlider } from './index'
+
+const Section = ({ containerStyle, title, children }) => {
+  return (
+    <View style={{ marginTop: SIZES.padding, ...containerStyle }}>
+      <Text style={{ ...FONTS.h3 }}>{title}</Text>
+      {children}
+    </View>
+  )
+}
 
 const FilterModal = ({ isVisible, onClose }) => {
   const [showFilterModal, setShowFilterModal] = useState(isVisible)
@@ -35,6 +44,22 @@ const FilterModal = ({ isVisible, onClose }) => {
     inputRange: [0, 1],
     outputRange: [SIZES.height, SIZES.height - 680],
   })
+
+  const renderDistance = () => {
+    return (
+      <Section title='Distance'>
+        <View style={{ alignItems: 'center' }}>
+          <TwoPointSlider
+            values={[3, 4]}
+            min={1}
+            max={20}
+            postfix='Km'
+            onValuesChange={(values) => console.log(values)}
+          />
+        </View>
+      </Section>
+    )
+  }
 
   return (
     <Modal animationType='fade' transparent={true} visible={isVisible}>
@@ -79,6 +104,14 @@ const FilterModal = ({ isVisible, onClose }) => {
               onPress={() => setShowFilterModal(false)}
             />
           </View>
+
+          <ScrollView
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={{ paddingBottom: 250 }}
+          >
+            {/* distance */}
+            {renderDistance()}
+          </ScrollView>
         </Animated.View>
       </View>
     </Modal>
