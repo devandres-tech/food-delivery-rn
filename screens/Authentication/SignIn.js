@@ -13,6 +13,10 @@ const SignIn = ({ navigation }) => {
   const [showPass, setShowPass] = useState(false)
   const [saveMe, setSaveMe] = useState(false)
 
+  const isEnabledSignIn = () => {
+    return email !== '' && password !== '' && emailError === ''
+  }
+
   return (
     <AuthLayout subtitle={'Welcome back!'} title={"Lets's Sign You In"}>
       <View style={{ flex: 1, marginTop: SIZES.padding * 2 }}>
@@ -85,6 +89,20 @@ const SignIn = ({ navigation }) => {
             onPress={() => navigation.navigate('ForgotPassword')}
           />
         </View>
+
+        <TextButton
+          label='Sing In'
+          disabled={isEnabledSignIn() ? false : true}
+          buttonContainerStyle={{
+            height: 55,
+            alignItems: 'center',
+            marginTop: SIZES.padding,
+            borderRadius: SIZES.radius,
+            backgroundColor: isEnabledSignIn()
+              ? COLORS.primary
+              : COLORS.transparentPrimary,
+          }}
+        />
       </View>
     </AuthLayout>
   )
