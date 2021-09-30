@@ -6,6 +6,7 @@ import IconButton from './IconButton'
 import TextButton from './TextButton'
 import TextIconButton from './TextIconButton'
 import TwoPointSlider from './TwoPointSlider'
+import FormInput from './FormInput'
 
 export {
   Header,
@@ -16,4 +17,5 @@ export {
   TwoPointSlider,
   TextButton,
   TextIconButton,
+  FormInput,
 }

@@ -7,6 +7,7 @@ import SignIn from './Authentication/SignIn'
 import SignUp from './Authentication/SignUp'
 import Otp from './Authentication/Otp'
 import ForgotPassword from './Authentication/ForgotPassword'
+import AuthLayout from './Authentication/AuthLayout'
 
 // Home
 import Home from './Home/Home'
@@ -35,4 +36,5 @@ export {
   SignUp,
   Otp,
   ForgotPassword,
+  AuthLayout,
 }
