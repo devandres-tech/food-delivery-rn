@@ -35,7 +35,7 @@ const FormInput = ({
         }}
       >
         {prependComponent}
-        {/* <TextInput
+        <TextInput
           style={{ flex: 1, ...inputStyle }}
           placeholder={placeholder}
           placeholderTextColor={COLORS.gray}
@@ -44,7 +44,7 @@ const FormInput = ({
           autoCompleteType={autoCompleteType}
           autoCapitalize={autoCapitalize}
           onChangeText={(text) => onChange(text)}
-        /> */}
+        />
         {appendComponent}
       </View>
     </View>

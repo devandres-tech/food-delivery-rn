@@ -31,7 +31,28 @@ const SignIn = () => {
             </View>
           }
         />
-        <FormInput label='password' secureTextEntry={!showPass} />
+        <FormInput
+          label='password'
+          secureTextEntry={!showPass}
+          autoCompleteType='password'
+          containerStyle={{ marginTop: SIZES.radius }}
+          onChange={(value) => setPassword(value)}
+          appendComponent={
+            <TouchableOpacity
+              style={{
+                width: 40,
+                alignItems: 'flex-end',
+                justifyContent: 'center',
+              }}
+              onPress={() => setShowPass(!showPass)}
+            >
+              <Image
+                source={showPass ? icons.eye_close : icons.eye}
+                style={{ height: 20, width: 20, tintColor: COLORS.gray }}
+              />
+            </TouchableOpacity>
+          }
+        />
       </View>
     </AuthLayout>
   )
