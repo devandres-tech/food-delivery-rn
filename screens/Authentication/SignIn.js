@@ -3,14 +3,15 @@ import { View, Text, TouchableOpacity, Image } from 'react-native'
 
 import { AuthLayout } from '../'
 import { FONTS, SIZES, COLORS, icons } from '../../constants'
-import { FormInput } from '../../components'
+import { FormInput, CustomSwitch, TextButton } from '../../components'
 import { utils } from '../../utils'
 
-const SignIn = () => {
+const SignIn = ({ navigation }) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [emailError, setEmailError] = useState('')
   const [showPass, setShowPass] = useState(false)
+  const [saveMe, setSaveMe] = useState(false)
 
   return (
     <AuthLayout subtitle={'Welcome back!'} title={"Lets's Sign You In"}>
@@ -68,6 +69,22 @@ const SignIn = () => {
             </TouchableOpacity>
           }
         />
+
+        <View
+          style={{
+            flexDirection: 'row',
+            marginTop: SIZES.radius,
+            justifyContent: 'space-between',
+          }}
+        >
+          <CustomSwitch value={saveMe} onChange={(value) => setSaveMe(value)} />
+          <TextButton
+            label='Forgot Password'
+            buttonContainerStyle={{ backgroundColor: null }}
+            labelStyle={{ color: COLORS.gray, ...FONTS.body4 }}
+            onPress={() => navigation.navigate('ForgotPassword')}
+          />
+        </View>
       </View>
     </AuthLayout>
   )

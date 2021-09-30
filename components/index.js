@@ -7,8 +7,10 @@ import TextButton from './TextButton'
 import TextIconButton from './TextIconButton'
 import TwoPointSlider from './TwoPointSlider'
 import FormInput from './FormInput'
+import CustomSwitch from './CustomSwitch'
 
 export {
+  CustomSwitch,
   Header,
   FilterModal,
   HorizontalFoodCard,
