@@ -4,6 +4,7 @@ import { View, Text, TouchableOpacity, Image } from 'react-native'
 import { AuthLayout } from '../'
 import { FONTS, SIZES, COLORS, icons } from '../../constants'
 import { FormInput } from '../../components'
+import { utils } from '../../utils'
 
 const SignIn = () => {
   const [email, setEmail] = useState('')
@@ -19,14 +20,28 @@ const SignIn = () => {
           keyboardType='email-address'
           autoCompleteType='email'
           onChange={(value) => {
+            utils.validateEmail(value, setEmailError)
             setEmail(value)
           }}
           errorMsg={emailError}
           appendComponent={
             <View style={{ justifyContent: 'center' }}>
               <Image
-                source={icons.correct}
-                style={{ height: 20, width: 20, tintColor: COLORS.green }}
+                source={
+                  email === '' || (email !== '' && emailError === '')
+                    ? icons.correct
+                    : icons.cancel
+                }
+                style={{
+                  height: 20,
+                  width: 20,
+                  tintColor:
+                    email === ''
+                      ? COLORS.gray
+                      : email !== '' && emailError === ''
+                      ? COLORS.green
+                      : COLORS.red,
+                }}
               />
             </View>
           }
