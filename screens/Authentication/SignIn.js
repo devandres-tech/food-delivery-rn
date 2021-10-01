@@ -139,7 +139,25 @@ const SignIn = ({ navigation }) => {
           }}
           icon={icons.fb}
           iconPosition='LEFT'
-          iconsStyle={}
+          iconStyle={{ tintColor: COLORS.white }}
+          label='Continue with Facebook'
+          labelStyle={{ marginLeft: SIZES.radius, color: COLORS.white }}
+          onPress={() => console.log('fb')}
+        />
+        <TextIconButton
+          containerStyle={{
+            height: 50,
+            alignItems: 'center',
+            borderRadius: SIZES.radius,
+            marginTop: SIZES.radius,
+            backgroundColor: COLORS.lightGray2,
+          }}
+          icon={icons.google}
+          iconPosition='LEFT'
+          iconStyle={{ tintColor: null }}
+          label='Continue with Google'
+          labelStyle={{ marginLeft: SIZES.radius }}
+          onPress={() => console.log('google')}
         />
       </View>
     </AuthLayout>
