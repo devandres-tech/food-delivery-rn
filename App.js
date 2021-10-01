@@ -24,7 +24,7 @@ export default function App() {
       <NavigationContainer>
         <Stack.Navigator
           screenOptions={{ headerShown: false }}
-          initialRouteName='Otp'
+          initialRouteName='ForgotPassword'
         >
           <Stack.Screen name='Otp' component={Otp} />
           <Stack.Screen name='OnBoarding' component={OnBoarding} />
