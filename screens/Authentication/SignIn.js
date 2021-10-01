@@ -3,7 +3,12 @@ import { View, Text, TouchableOpacity, Image } from 'react-native'
 
 import { AuthLayout } from '../'
 import { FONTS, SIZES, COLORS, icons } from '../../constants'
-import { FormInput, CustomSwitch, TextButton } from '../../components'
+import {
+  FormInput,
+  CustomSwitch,
+  TextButton,
+  TextIconButton,
+} from '../../components'
 import { utils } from '../../utils'
 
 const SignIn = ({ navigation }) => {
@@ -102,6 +107,39 @@ const SignIn = ({ navigation }) => {
               ? COLORS.primary
               : COLORS.transparentPrimary,
           }}
+        />
+
+        <View
+          style={{
+            flexDirection: 'row',
+            marginTop: SIZES.radius,
+            justifyContent: 'center',
+          }}
+        >
+          <Text style={{ color: COLORS.darkGray, ...FONTS.body3 }}>
+            Dont't have an account?
+          </Text>
+          <TextButton
+            onPress={() => navigation.navigate('SignUp')}
+            label='Sing up'
+            buttonContainerStyle={{ backgroundColor: null, marginLeft: 3 }}
+            labelStyle={{ color: COLORS.primary, ...FONTS.h3 }}
+          />
+        </View>
+      </View>
+
+      {/* footer  */}
+      <View>
+        <TextIconButton
+          containerStyle={{
+            height: 50,
+            alignItems: 'center',
+            borderRadius: SIZES.radius,
+            backgroundColor: COLORS.blue,
+          }}
+          icon={icons.fb}
+          iconPosition='LEFT'
+          iconsStyle={}
         />
       </View>
     </AuthLayout>

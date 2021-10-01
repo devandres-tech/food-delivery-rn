@@ -1,5 +1,5 @@
 import React from 'react'
-import { TouchableOpacity, Text, Image } from 'react-native'
+import { TouchableOpacity, Text, Image, StyleSheet } from 'react-native'
 import { FONTS, COLORS } from '../constants'
 
 const TextIconButton = ({
@@ -9,6 +9,7 @@ const TextIconButton = ({
   icon,
   iconStyle,
   onPress,
+  iconPosition,
 }) => {
   return (
     <TouchableOpacity
@@ -20,8 +21,11 @@ const TextIconButton = ({
       }}
       onPress={onPress}
     >
+      {iconPosition === 'LEFT' && (
+        <Image source={icon} style={{ ...styles.image, ...iconStyle }} />
+      )}
       <Text style={{ ...FONTS.body3, ...labelStyle }}>{label}</Text>
-      <Image
+      {/* <Image
         source={icon}
         style={{
           marginLeft: 5,
@@ -30,9 +34,21 @@ const TextIconButton = ({
           tintColor: COLORS.black,
           ...iconStyle,
         }}
-      />
+      /> */}
+      {iconPosition === 'RIGHT' && (
+        <Image source={icon} style={{ ...styles.image, ...iconStyle }} />
+      )}
     </TouchableOpacity>
   )
 }
+
+const styles = StyleSheet.create({
+  image: {
+    marginLeft: 5,
+    width: 20,
+    height: 20,
+    tintColor: COLORS.black,
+  },
+})
 
 export default TextIconButton
