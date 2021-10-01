@@ -24,13 +24,13 @@ export default function App() {
       <NavigationContainer>
         <Stack.Navigator
           screenOptions={{ headerShown: false }}
-          initialRouteName='OnBoarding'
+          initialRouteName='Otp'
         >
+          <Stack.Screen name='Otp' component={Otp} />
           <Stack.Screen name='OnBoarding' component={OnBoarding} />
           <Stack.Screen name='SignIn' component={SignIn} />
           <Stack.Screen name='SignUp' component={SignUp} />
           <Stack.Screen name='ForgotPassword' component={ForgotPassword} />
-          <Stack.Screen name='Otp' component={Otp} />
           <Stack.Screen name='Home' component={CustomDrawer} />
         </Stack.Navigator>
       </NavigationContainer>
