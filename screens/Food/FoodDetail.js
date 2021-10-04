@@ -9,6 +9,7 @@ import {
   IconLabel,
   TextButton,
   LineDivider,
+  Rating,
 } from '../../components'
 
 const FoodDetail = ({ navigation, route: { params } }) => {
@@ -183,6 +184,9 @@ const FoodDetail = ({ navigation, route: { params } }) => {
             1.2 KM away from you
           </Text>
         </View>
+
+        {/* rating  */}
+        <Rating rating={4} iconStyle={{ marginLeft: 3 }} />
       </View>
     )
   }

@@ -11,8 +11,10 @@ import CustomSwitch from './CustomSwitch'
 import CartQtyButton from './CartQtyButton'
 import IconLabel from './IconLabel'
 import LineDivider from './LineDivider'
+import Rating from './Rating'
 
 export {
+  Rating,
   LineDivider,
   IconLabel,
   CartQtyButton,
