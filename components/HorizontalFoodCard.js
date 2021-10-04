@@ -18,7 +18,7 @@ const HorizontalFoodCard = ({ containerStyle, imageStyle, item, onPress }) => {
       <View style={{ flex: 1 }}>
         <Text style={{ ...FONTS.h3, fontSize: 17 }}>{item.name}</Text>
         <Text style={{ color: COLORS.darkGray2, ...FONTS.body4 }}>
-          {item.description}
+          {item.description.slice(0, 50)}
         </Text>
         <Text style={{ marginTop: SIZES.base, ...FONTS.h2 }}>
           ${item.price}

@@ -9,8 +9,10 @@ import TwoPointSlider from './TwoPointSlider'
 import FormInput from './FormInput'
 import CustomSwitch from './CustomSwitch'
 import CartQtyButton from './CartQtyButton'
+import IconLabel from './IconLabel'
 
 export {
+  IconLabel,
   CartQtyButton,
   CustomSwitch,
   Header,

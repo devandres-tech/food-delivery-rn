@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { View, Text, Image, ScrollView } from 'react-native'
 
-import { FONTS, COLORS, SIZES, icons, images, dummyData } from '../../constants'
-import { Header, IconButton, CartQtyButton } from '../../components'
+import { FONTS, COLORS, SIZES, icons, images } from '../../constants'
+import { Header, IconButton, CartQtyButton, IconLabel } from '../../components'
 
 const FoodDetail = ({ navigation, route: { params } }) => {
   const { foodItem } = params
@@ -58,6 +58,32 @@ const FoodDetail = ({ navigation, route: { params } }) => {
             resizeMode='contain'
             style={{ height: 170, width: '100%' }}
           />
+        </View>
+
+        {/* food info  */}
+        <View style={{ marginTop: SIZES.padding }}>
+          <Text style={{ ...FONTS.h1 }}>{foodItem.name}</Text>
+          <Text
+            style={{
+              marginTop: SIZES.base,
+              color: COLORS.gray,
+              textAlign: 'justify',
+              ...FONTS.body3,
+            }}
+          >
+            {foodItem.description}
+          </Text>
+          <View style={{ flexDirection: 'row', marginTop: SIZES.padding }}>
+            {/* ratings  */}
+            <IconLabel
+              containerStyle={{ backgroundColor: COLORS.primary }}
+              icon={icons.star}
+              label='4.5'
+              labelStyle={{ color: COLORS.white }}
+            />
+            {/* duration  */}
+            {/* shipping  */}
+          </View>
         </View>
       </View>
     )

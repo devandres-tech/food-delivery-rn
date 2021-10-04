@@ -58,7 +58,7 @@ const VerticalFoodCard = ({ containerStyle, item, onPress }) => {
             ...FONTS.body5,
           }}
         >
-          {item.description}
+          {item.description.slice(0, 19)}
         </Text>
         <Text style={{ marginTop: SIZES.radius, ...FONTS.h2 }}>
           ${item.price}

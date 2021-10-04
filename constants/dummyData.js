@@ -49,7 +49,8 @@ const hotTacos = {
 const vegBiryani = {
   id: 3,
   name: 'Veg Biryani',
-  description: 'Indian Vegetable Biryani',
+  description:
+    'A popular spice and vegetables mixed favoured rice dish which is typically prepared by layering the biryani gravy and basmati rice in flat bottom vessel.',
   categories: [1, 2, 3],
   price: 10.99,
   calories: 78,
@@ -67,7 +68,6 @@ const wrapSandwich = {
   isFavorite: true,
   image: require('../assets/dummyData/wrap_sandwich.png'),
 }
-
 const menu = [
   {
     id: 1,
