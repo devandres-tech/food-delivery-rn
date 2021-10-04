@@ -225,7 +225,8 @@ const FoodDetail = ({ navigation, route: { params } }) => {
             backgroundColor: COLORS.primary,
           }}
           label='Buy Now'
-          label2='$14.99'
+          label2={`$${foodItem.price}`}
+          onPress={() => navigation.navigate('MyCart')}
         />
       </View>
     )
