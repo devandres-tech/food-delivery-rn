@@ -10,11 +10,13 @@ import {
   TextButton,
   LineDivider,
   Rating,
+  StepperInput,
 } from '../../components'
 
 const FoodDetail = ({ navigation, route: { params } }) => {
   const { foodItem } = params
   const [selectedSize, setSelectedSize] = useState('')
+  const [quantity, setQuantity] = useState(1)
 
   const renderDetails = () => {
     return (
@@ -191,6 +193,30 @@ const FoodDetail = ({ navigation, route: { params } }) => {
     )
   }
 
+  const renderFooter = () => {
+    return (
+      <View
+        style={{
+          flexDirection: 'row',
+          height: 120,
+          alignItems: 'center',
+          paddingHorizontal: SIZES.padding,
+          paddingBottom: SIZES.radius,
+        }}
+      >
+        <StepperInput
+          onAdd={() => setQuantity(quantity + 1)}
+          onMinus={() => {
+            if (quantity > 1) {
+              setQuantity(quantity - 1)
+            }
+          }}
+          value={quantity}
+        />
+      </View>
+    )
+  }
+
   return (
     <View
       style={{
@@ -235,6 +261,10 @@ const FoodDetail = ({ navigation, route: { params } }) => {
         <LineDivider />
         {renderRestaurant()}
       </ScrollView>
+
+      {/* footer  */}
+      <LineDivider />
+      {renderFooter()}
     </View>
   )
 }
