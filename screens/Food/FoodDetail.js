@@ -213,6 +213,20 @@ const FoodDetail = ({ navigation, route: { params } }) => {
           }}
           value={quantity}
         />
+
+        <TextButton
+          buttonContainerStyle={{
+            flex: 1,
+            flexDirection: 'row',
+            height: 60,
+            marginLeft: SIZES.radius,
+            paddingHorizontal: SIZES.radius,
+            borderRadius: SIZES.radius,
+            backgroundColor: COLORS.primary,
+          }}
+          label='Buy Now'
+          label2='$14.99'
+        />
       </View>
     )
   }
