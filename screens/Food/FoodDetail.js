@@ -1,11 +1,18 @@
 import React, { useState } from 'react'
 import { View, Text, Image, ScrollView } from 'react-native'
 
-import { FONTS, COLORS, SIZES, icons, images } from '../../constants'
-import { Header, IconButton, CartQtyButton, IconLabel } from '../../components'
+import { FONTS, COLORS, SIZES, icons, dummyData } from '../../constants'
+import {
+  Header,
+  IconButton,
+  CartQtyButton,
+  IconLabel,
+  TextButton,
+} from '../../components'
 
 const FoodDetail = ({ navigation, route: { params } }) => {
   const { foodItem } = params
+  const [selectedSize, setSelectedSize] = useState('')
 
   const renderDetails = () => {
     return (
@@ -73,8 +80,8 @@ const FoodDetail = ({ navigation, route: { params } }) => {
           >
             {foodItem.description}
           </Text>
+          {/* ratings  */}
           <View style={{ flexDirection: 'row', marginTop: SIZES.padding }}>
-            {/* ratings  */}
             <IconLabel
               containerStyle={{ backgroundColor: COLORS.primary }}
               icon={icons.star}
@@ -82,7 +89,67 @@ const FoodDetail = ({ navigation, route: { params } }) => {
               labelStyle={{ color: COLORS.white }}
             />
             {/* duration  */}
+            <IconLabel
+              containerStyle={{
+                marginLeft: SIZES.radius,
+                paddingHorizontal: 0,
+              }}
+              icon={icons.clock}
+              label='30 mins'
+              labelStyle={{ tintColor: COLORS.black }}
+            />
             {/* shipping  */}
+            <IconLabel
+              containerStyle={{
+                marginLeft: SIZES.radius,
+                paddingHorizontal: 0,
+              }}
+              icon={icons.dollar}
+              label='Free shipping'
+              labelStyle={{ tintColor: COLORS.black }}
+            />
+          </View>
+
+          {/* sizes  */}
+          <View
+            style={{
+              flexDirection: 'row',
+              marginTop: SIZES.padding,
+              alignItems: 'center',
+            }}
+          >
+            <Text style={{ ...FONTS.h3 }}>Sizes:</Text>
+            <View
+              style={{
+                flexDirection: 'row',
+                flexWrap: 'wrap',
+                marginLeft: SIZES.padding,
+              }}
+            >
+              {dummyData.sizes.map((item, index) => (
+                <TextButton
+                  key={`sizes-${index}`}
+                  buttonContainerStyle={{
+                    width: 55,
+                    height: 55,
+                    margin: SIZES.base,
+                    borderWidth: 1,
+                    borderRadius: SIZES.radius,
+                    borderColor:
+                      selectedSize === item.id ? COLORS.primary : COLORS.gray2,
+                    backgroundColor:
+                      selectedSize === item.id ? COLORS.primary : null,
+                  }}
+                  label={item.label}
+                  labelStyle={{
+                    color:
+                      selectedSize === item.id ? COLORS.white : COLORS.gray2,
+                    ...FONTS.body2,
+                  }}
+                  onPress={() => setSelectedSize(item.id)}
+                />
+              ))}
+            </View>
           </View>
         </View>
       </View>
