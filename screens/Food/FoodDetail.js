@@ -1,13 +1,14 @@
 import React, { useState } from 'react'
 import { View, Text, Image, ScrollView } from 'react-native'
 
-import { FONTS, COLORS, SIZES, icons, dummyData } from '../../constants'
+import { FONTS, COLORS, SIZES, icons, dummyData, images } from '../../constants'
 import {
   Header,
   IconButton,
   CartQtyButton,
   IconLabel,
   TextButton,
+  LineDivider,
 } from '../../components'
 
 const FoodDetail = ({ navigation, route: { params } }) => {
@@ -156,6 +157,36 @@ const FoodDetail = ({ navigation, route: { params } }) => {
     )
   }
 
+  const renderRestaurant = () => {
+    return (
+      <View
+        style={{
+          flexDirection: 'row',
+          marginVertical: SIZES.padding,
+          paddingHorizontal: SIZES.padding,
+          alignItems: 'center',
+        }}
+      >
+        <Image
+          source={images.profile}
+          style={{ width: 50, height: 50, borderRadius: SIZES.radius }}
+        />
+        <View
+          style={{
+            flex: 1,
+            marginLeft: SIZES.radius,
+            justifyContent: 'center',
+          }}
+        >
+          <Text style={{ ...FONTS.h3 }}>By Andres</Text>
+          <Text style={{ color: COLORS.gray, ...FONTS.body4 }}>
+            1.2 KM away from you
+          </Text>
+        </View>
+      </View>
+    )
+  }
+
   return (
     <View
       style={{
@@ -195,7 +226,11 @@ const FoodDetail = ({ navigation, route: { params } }) => {
       />
 
       {/* body  */}
-      <ScrollView>{renderDetails()}</ScrollView>
+      <ScrollView>
+        {renderDetails()}
+        <LineDivider />
+        {renderRestaurant()}
+      </ScrollView>
     </View>
   )
 }

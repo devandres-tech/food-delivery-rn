@@ -10,8 +10,10 @@ import FormInput from './FormInput'
 import CustomSwitch from './CustomSwitch'
 import CartQtyButton from './CartQtyButton'
 import IconLabel from './IconLabel'
+import LineDivider from './LineDivider'
 
 export {
+  LineDivider,
   IconLabel,
   CartQtyButton,
   CustomSwitch,
