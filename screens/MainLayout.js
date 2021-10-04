@@ -260,7 +260,9 @@ const MainLayout = ({ navigation }) => {
           renderItem={({ item, index }) => {
             return (
               <View style={{ height: SIZES.height, width: SIZES.width }}>
-                {item.label === constants.screens.home && <Home />}
+                {item.label === constants.screens.home && (
+                  <Home navigation={navigation} />
+                )}
                 {item.label === constants.screens.search && <Search />}
                 {item.label === constants.screens.cart && <CartTab />}
                 {item.label === constants.screens.favorite && <Favorite />}

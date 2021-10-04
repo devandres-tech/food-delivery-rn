@@ -140,7 +140,7 @@ const CustomDrawerContent = ({ navigation, selectedTab, setSelectedTab }) => {
   )
 }
 
-const CustomDrawer = () => {
+const CustomDrawer = ({ navigation }) => {
   const selectedTab = useSelector((state) => state.tabReducer.selectedTab)
   const drawerAnimation = useRef(new Animated.Value(0)).current
   const dispatch = useDispatch()
@@ -189,7 +189,11 @@ const CustomDrawer = () => {
       >
         <Drawer.Screen name='MainLayout'>
           {(props) => (
-            <MainLayout drawerAnimationStyle={animatedStyle} {...props} />
+            <MainLayout
+              navigation={navigation}
+              drawerAnimationStyle={animatedStyle}
+              {...props}
+            />
           )}
         </Drawer.Screen>
       </Drawer.Navigator>

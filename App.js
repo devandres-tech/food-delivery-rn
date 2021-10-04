@@ -37,7 +37,7 @@ export default function App() {
       <NavigationContainer>
         <Stack.Navigator
           screenOptions={{ headerShown: false }}
-          initialRouteName='FoodDetail'
+          initialRouteName='Home'
         >
           <Stack.Screen name='Otp' component={Otp} />
           <Stack.Screen name='OnBoarding' component={OnBoarding} />

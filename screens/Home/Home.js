@@ -39,7 +39,7 @@ const Section = ({ title, onPress, children }) => {
   )
 }
 
-const Home = () => {
+const Home = ({ navigation }) => {
   const [selectedCategoryId, setSelectedCategoryId] = useState(1)
   const [selectedMenuType, setSelectedMenuType] = useState(1)
   const [menuList, setMenuList] = useState([])
@@ -161,7 +161,9 @@ const Home = () => {
                 marginRight: index === popular.length - 1 ? SIZES.padding : 0,
               }}
               item={item}
-              onPress={() => console.log('Vertical food card')}
+              onPress={() =>
+                navigation.navigate('FoodDetail', { foodItem: item })
+              }
             />
           )}
         />
@@ -193,7 +195,9 @@ const Home = () => {
               }}
               imageStyle={{ marginTop: 35, height: 150, width: 150 }}
               item={item}
-              onPress={() => console.log('horizontal food card')}
+              onPress={() =>
+                navigation.navigate('FoodDetail', { foodItem: item })
+              }
             />
           )}
         />
@@ -322,7 +326,9 @@ const Home = () => {
                 width: 110,
               }}
               item={item}
-              onPress={() => console.log('horizontal food card')}
+              onPress={() =>
+                navigation.navigate('FoodDetail', { foodItem: item })
+              }
             />
           )
         }}
