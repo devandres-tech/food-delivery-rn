@@ -2,7 +2,13 @@ import React from 'react'
 import { View, Text } from 'react-native'
 import { FONTS } from '../constants'
 
-const Header = ({ containerStyle, title, leftContent, rightContent }) => {
+const Header = ({
+  containerStyle,
+  title,
+  leftContent,
+  rightContent,
+  titleStyle,
+}) => {
   return (
     <View style={{ flexDirection: 'row', ...containerStyle }}>
       {/* Left */}
@@ -10,7 +16,9 @@ const Header = ({ containerStyle, title, leftContent, rightContent }) => {
 
       {/* Title */}
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text style={{ ...FONTS.h3 }}>{title.toUpperCase()}</Text>
+        <Text style={{ ...FONTS.h3, ...titleStyle }}>
+          {title.toUpperCase()}
+        </Text>
       </View>
 
       {/* Right */}

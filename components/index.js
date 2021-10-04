@@ -8,8 +8,10 @@ import TextIconButton from './TextIconButton'
 import TwoPointSlider from './TwoPointSlider'
 import FormInput from './FormInput'
 import CustomSwitch from './CustomSwitch'
+import CartQtyButton from './CartQtyButton'
 
 export {
+  CartQtyButton,
   CustomSwitch,
   Header,
   FilterModal,
